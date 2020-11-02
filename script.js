@@ -1,5 +1,6 @@
-function getCity(city){
 
+
+function getCity(city){
     var ajaxRequest = new XMLHttpRequest();
     ajaxRequest.onreadystatechange = function(){
 
@@ -10,9 +11,14 @@ function getCity(city){
                 var jsonObj = JSON.parse(ajaxRequest.responseText);
 				console.log(jsonObj.weather[0].main);
                 //document.write(jsonObj.main.humidity);
-                document.getElementById('weatherInfo').innerHTML = "Humidity: " + JSON.stringify(jsonObj.main.humidity) + " <br>";
-                document.getElementById('weatherInfo').innerHTML += "Windspeed: " + JSON.stringify(jsonObj.wind.speed) + " <br> ";
-                document.getElementById('weatherInfo').innerHTML += "Temperature: " + Math.round(JSON.stringify(jsonObj.main.temp) - 273.15);
+                document.getElementById('weatherInfo').innerHTML = "City: " + JSON.stringify(jsonObj.name) + "<br>";
+                document.getElementById('weatherInfo').innerHTML += JSON.stringify(jsonObj.weather[0].main) + "<br>";
+                document.getElementById('weatherInfo').innerHTML += "Humidity: " + JSON.stringify(jsonObj.main.humidity) + " % "+ "<br>";
+                document.getElementById('weatherInfo').innerHTML += "Windspeed: " + JSON.stringify(jsonObj.wind.speed) + " km/h " + "<br>";
+                document.getElementById('weatherInfo').innerHTML += "Temperature: " + Math.round(JSON.stringify(jsonObj.main.temp) - 273.15) + " degrees celsius " + "<br>";
+                document.getElementById('weatherInfo').innerHTML += JSON.stringify(jsonObj.sys.country)  + "<br>";
+                let icon = ("<img src='http://openweathermap.org/img/w/" + jsonObj.weather[0].icon + ".png'>");
+                document.getElementById('weatherInfo').innerHTML += icon; 
             }
         }
     }
