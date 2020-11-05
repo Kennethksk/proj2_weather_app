@@ -1,12 +1,10 @@
-
-
 function getCity(city){
     var ajaxRequest = new XMLHttpRequest();
     ajaxRequest.onreadystatechange = function(){
 
-        if(ajaxRequest.readyState == 4){
+        //if(ajaxRequest.readyState == 4){
             //the request is completed, now check its status
-            if(ajaxRequest.status == 200){
+            //if(ajaxRequest.status == 200){
                 //turn JSON into object
                 var jsonObj = JSON.parse(ajaxRequest.responseText);
 				console.log(jsonObj.weather[0].main);
@@ -19,8 +17,8 @@ function getCity(city){
                 document.getElementById('weatherInfo').innerHTML += JSON.stringify(jsonObj.sys.country)  + "<br>";
                 let icon = ("<img src='http://openweathermap.org/img/w/" + jsonObj.weather[0].icon + ".png'>");
                 document.getElementById('weatherInfo').innerHTML += icon; 
-            }
-        }
+            //}
+        //}
     }
     x = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=62ea54180fbed75ca33d1b880ccf6324';
     ajaxRequest.open('GET', x);
@@ -37,15 +35,17 @@ Click.addEventListener("click", function () {
 	getCity(EnterKey.value);
 } );
 
-EnterKey.addEventListener("keypress", function() {
-  sendURL(event.key);
+EnterKey.addEventListener("keypress", function(e) {
+  sendURL(e.target.key);
 })
 
-function sendURL (enter) {
-	if(event.key=="Enter"){
+function sendURL (key) {
+	if(key == "Enter"){
     getCity(EnterKey.value);
 	}
 	else {
 
 	}
 }
+
+window.addEventListener("load", getCity);
